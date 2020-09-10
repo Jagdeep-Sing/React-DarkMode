@@ -2,7 +2,17 @@ import React from 'react'
 import './App.css'
 
 function App() {
-  const [darkTheme, setDarkTheme] = React.useState(false)
+  const [darkTheme, setDarkTheme] = React.useState(getDefaultTheme())
+
+  React.useEffect(() => {
+    localStorage.setItem('dark', JSON.stringify(darkTheme))
+  }, [darkTheme])
+
+  function getDefaultTheme() {
+    const selectedTheme = JSON.parse(localStorage.getItem('dark'))
+    return selectedTheme || false
+  }
+
   return (
     <div className={darkTheme ? 'dark-theme' : 'light-theme'}>
     <nav>
@@ -20,6 +30,7 @@ function App() {
     </div>
   </div>
   )
+
 }
 
 export default App
